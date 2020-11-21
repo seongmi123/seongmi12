@@ -4,7 +4,7 @@ public class 게시물 {
 	private String contents;
 	private int id;
 	private String writer;
-	private String cal;
+	private String date;
 	private int clicks;
 
 	public int getClicks() {
@@ -23,12 +23,12 @@ public class 게시물 {
 		this.writer = writer;
 	}
 
-	public String getCal() {
-		return cal;
+	public String getDate() {
+		return date;
 	}
 
-	public void setCal(String cal) {
-		this.cal = cal;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public int getId() {
@@ -55,11 +55,18 @@ public class 게시물 {
 		this.contents = contents;
 	}
 
-	public 게시물(String title, String contents, int id, String cal, int clicks, String writer) {
+	public 게시물(String title, String contents, int id, String date, int clicks, String writer) {
 		this.title = title;
 		this.contents = contents;
 		this.id = id;
-		this.cal = cal;
+		this.date = date;
+		this.clicks = clicks;
+		this.writer = writer;
+	}
+	
+	public 게시물(String title, String contents, int clicks, String writer) {
+		this.title = title;
+		this.contents = contents;
 		this.clicks = clicks;
 		this.writer = writer;
 	}

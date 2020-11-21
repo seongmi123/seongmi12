@@ -11,6 +11,13 @@ public class Comment {
 		this.writer = writer;
 		this.regDate = regDate;
 	}
+	
+	public Comment(int parentId, String comment, String writer) {
+		super();
+		this.parentId = parentId;
+		this.comment = comment;
+		this.writer = writer;
+	}
 
 	public String getComment() {
 		return comment;
