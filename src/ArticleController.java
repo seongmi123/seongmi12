@@ -61,9 +61,9 @@ public class ArticleController {
 			} else if (readSelect == 2) {
 				System.out.println("[좋아요]");
 			} else if (readSelect == 3) {
-				System.out.println("[수정]");
+				updateArticle();
 			} else if (readSelect == 4) {
-				System.out.println("[삭제]");
+				deleteArticle();
 			} else {
 				break;
 			}
@@ -101,21 +101,32 @@ public class ArticleController {
 	}
 
 	public void updateArticle() {
+		ArrayList<게시물> list = articleDao.getArticles();
 		if (login == 1) {
 			System.out.print("수정할 게시물 번호 : ");
 			int updateId = Integer.parseInt(sc.nextLine());
 
-			System.out.print("제목 : ");
-			String updateTitle = sc.nextLine();
-			System.out.print("내용 : ");
-			String updateContents = sc.nextLine();
+			for(int i = 0; i < list.size(); i++) {
+				게시물 게시물 = list.get(i);
+				게시물 target게시물 = list.get(updateId);
+				if(게시물.getWriter().equals(target게시물.getWriter())) {
+					System.out.print("제목 : ");
+					String updateTitle = sc.nextLine();
+					System.out.print("내용 : ");
+					String updateContents = sc.nextLine();
 
-			boolean rst = articleDao.updateArticle(updateId, updateTitle, updateContents);
-			System.out.println("수정이 완료되었습니다.");
-
-			if (!rst) {
-				System.out.println("잘못된 정보입니다.");
+					boolean rst = articleDao.updateArticle(updateId, updateTitle, updateContents);
+					System.out.println("수정이 완료되었습니다.");
+					
+					if (!rst) {
+						System.out.println("잘못된 정보입니다.");
+					}
+					
+				} else {
+					System.out.println("자신의 게시물만 수정 가능합니다.");
+				}
 			}
+
 		} else {
 			System.out.println("[로그인 후 사용 가능합니다.]");
 		}
@@ -175,7 +186,7 @@ public class ArticleController {
 	
 	public void myInfo() {
 		if (login == 1) {
-
+			
 		} else {
 			System.out.println("[로그인 후 사용 가능합니다.]");
 		}
