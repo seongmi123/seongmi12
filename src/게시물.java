@@ -7,6 +7,15 @@ public class 게시물 {
 	private String date;
 	private int clicks;
 	private String writerId;
+	private int likes;
+
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
 
 	public int getClicks() {
 		return clicks;

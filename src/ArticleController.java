@@ -84,16 +84,54 @@ public void doCommand(String user) {
 				printArticle(게시물);
 
 			} else if (readSelect == 2) {
-				System.out.println("[좋아요]");
+				Like like = articleDao.getLikeByParentIdAndMemberLoginId(게시물.getId(), loginedMember.getID());
+
+				if(isLogin() && (like == null)) {
+
+					like = new Like(게시물.getId(), loginedMember.getID());
+					articleDao.addLike(like);
+
+					System.out.println("해당 게시물을 좋아합니다.");	
+					printArticle(게시물);
+				} else {
+					articleDao.removeLike(like);
+					System.out.println("해당 게시물의 좋아요를 해제합니다.");
+					printArticle(게시물);
+				}
+				
 			} else if (readSelect == 3) {
-				updateArticle();
+				if(isLogin() && isMyArticle(게시물)) {
+					updateMyArticle(게시물.getId());					
+				}
 			} else if (readSelect == 4) {
-				deleteArticle();
+				if(isLogin() && isMyArticle(게시물)) {					
+					deleteMyArticle(게시물.getId());
+				}
 			} else {
 				break;
 			}
 		}
 	}
+	
+	public void deleteMyArticle(int targetId) {		
+		boolean rst = articleDao.deleteArticle(targetId);
+		if (!rst) {
+			System.out.println("없는 게시물 번호입니다.");
+		}
+	}
+	
+	public void updateMyArticle(int targetId) {
+		
+		System.out.print("제목 : ");
+		String title = sc.nextLine();
+		System.out.print("내용 : ");
+		String body = sc.nextLine();
+		boolean rst = articleDao.updateArticle(targetId, title, body);
+		if (!rst) {
+			System.out.println("없는 게시물 번호입니다.");
+		}
+	}
+	
 
 	public void readArticle() {
 		System.out.print("상세보기할 게시물 번호 : ");
@@ -174,7 +212,7 @@ public void doCommand(String user) {
 			String contents = sc.nextLine();
 			System.out.println("게시물이 등록되었습니다.");
 
-			게시물 게시물 = new 게시물(title, contents, 0, "익명", "test");
+			게시물 게시물 = new 게시물(title, contents, 0, loginedMember.getNickName(), loginedMember.getID());
 			articleDao.addArticle(게시물);
 		} 
 	}
@@ -187,6 +225,7 @@ public void doCommand(String user) {
 		System.out.println("작성자 : " + 게시물.getWriter());
 		System.out.println("등록 날짜 : " + 게시물.getDate());
 		System.out.println("조회수 : " + 게시물.getClicks());
+		System.out.println("좋아요 : " + 게시물.getLikes());
 		System.out.println("================================");
 
 		System.out.println("------------ 댓글 ------------");
@@ -203,6 +242,8 @@ public void doCommand(String user) {
 	}
 	
 	public boolean isMyArticle(게시물 게시물) {
+		System.out.println("article : " + 게시물);
+		System.out.println("loginedMember : " + loginedMember);
 		if(게시물.getWriterId().equals(loginedMember.getID())) {
 			return true;
 		} else {
