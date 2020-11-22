@@ -14,12 +14,6 @@ public class ArticleDao {
 		return time1;
 	}
 
-	public void init() {
-		list.add(new 게시물("제목1", "내용1", 1, getCurrentDate(), 0, "익명1"));
-		list.add(new 게시물("제목2", "내용2", 2, getCurrentDate(), 0, "익명2"));
-		list.add(new 게시물("제목3", "내용3", 3, getCurrentDate(), 0, "익명3"));  
-	}
-
 	public void addReply(Comment c) {
 		c.setRegDate(getCurrentDate());
 		commentList.add(c);

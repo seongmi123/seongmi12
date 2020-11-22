@@ -6,6 +6,7 @@ public class 게시물 {
 	private String writer;
 	private String date;
 	private int clicks;
+	private String writerId;
 
 	public int getClicks() {
 		return clicks;
@@ -55,19 +56,29 @@ public class 게시물 {
 		this.contents = contents;
 	}
 
-	public 게시물(String title, String contents, int id, String date, int clicks, String writer) {
+	public 게시물(String title, String contents, int id, String date, int clicks, String writer, String writerId) {
 		this.title = title;
 		this.contents = contents;
 		this.id = id;
 		this.date = date;
 		this.clicks = clicks;
 		this.writer = writer;
+		this.writerId = writerId;
 	}
 	
-	public 게시물(String title, String contents, int clicks, String writer) {
+	public 게시물(String title, String contents, int clicks, String writer, String writerId) {
 		this.title = title;
 		this.contents = contents;
 		this.clicks = clicks;
 		this.writer = writer;
+		this.writerId = writerId;
+	}
+
+	public String getWriterId() {
+		return writerId;
+	}
+
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
 	}
 }

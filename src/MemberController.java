@@ -6,6 +6,26 @@ public class MemberController {
 	Scanner sc = new Scanner(System.in);
 	int login = 0;
 	
+	public void doCommand(String user) {
+		if (user.equals("myinfo")) {
+			myInfo();
+		}
+
+		if (user.equals("signup")) {
+			memberSignup();
+		}
+
+		if (user.equals("signin")) {
+			memberSignin();
+		}
+	}
+	
+	Member loginedMember = null;
+
+	public Member getLoginedMember() {
+		return this.loginedMember;
+	}
+	
 	public void memberInit() {
 		memberList.add(new Member("uk111", "uk111", "익명1"));
 		memberList.add(new Member("uk222", "uk222", "익명2"));
@@ -13,7 +33,6 @@ public class MemberController {
 	}
 	
 	public void memberSignin() {
-		memberInit();
 		int f = 1;
 		System.out.print("아이디 : ");
 		String signId = sc.nextLine();
@@ -24,8 +43,9 @@ public class MemberController {
 			Member member = memberList.get(i);
 			if (signId.equals(member.getID()) && signPW.equals(member.getPW())) {
 				System.out.println(member.getNickName() + "님 환영합니다!");
+				loginedMember = member;
 				f = 0;
-				login = 1;
+				
 				break;
 			}
 		}
@@ -45,5 +65,13 @@ public class MemberController {
 		memberList.add(new Member(ID, PW, nickName));
 
 		System.out.println("======= 회원가입이 완료되었습니다 =======");
+	}
+	
+	public void myInfo() {
+		if (login == 1) {
+
+		} else {
+			System.out.println("[로그인 후 사용 가능합니다.]");
+		}
 	}
 }
